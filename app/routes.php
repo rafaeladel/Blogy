@@ -3,7 +3,7 @@
 Route::get('/',     array('as' => 'listAllPosts',      'uses' => 'PostController@listPosts'));
 
 //Added where() below because without specifying the type of the id. Anything comes after / is considered an id !
-Route::get('/{id}', array('as' => 'listSinglePosts',   'uses' => 'PostController@showPost'))->where(array('id' => '[0-9]+'));
+Route::get('/{id}', array('as' => 'listSinglePost',   'uses' => 'PostController@showPost'))->where(array('id' => '[0-9]+'));
 
 Route::get('login',                     array('before' => 'guest' , 'as' => 'getLogin',     'uses' => 'UserController@getLogin'));
 Route::post('login',                    array('before' => 'csrf' ,  'as' => 'postLogin',    'uses' => 'UserController@postLogin'));
