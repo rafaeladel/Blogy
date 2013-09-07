@@ -5,7 +5,12 @@
 @stop
 
 @section('content')
-<h2>Main - Admin - Post Main menu</h2>
+
+@if(Auth::check())
+    <h2>Main - Admin - Post Main menu</h2>
+@else
+    <h2>Main - {{ $post->title }} </h2>
+@endif
 
 @if(isset($message))
     <p>{{ $message }}</p>
@@ -13,7 +18,9 @@
 
 @if(!empty($post))  
     <h4>{{ $post->title }}</h4>
-    {{ link_to_route('getEditPost', 'Edit', array('id' => $post->id)) }}
+    @if(Auth::check())
+        {{ link_to_route('getEditPost', 'Edit', array('id' => $post->id)) }}
+    @endif
     <h5>By : {{ $post->author }}</h5>
     <h5>Created at : {{ $post->created_at }} - {{ count($post->comments) }} Comment(s)</h5>
     <p>{{ $post->body }}</p>
@@ -24,10 +31,12 @@
     <li>
         <h5>{{ $comment->author}}</h5>
         <p>{{ $comment->body }}</p>
-        {{ link_to_route('getEditComment', 'Edit', array('comment_id' => $comment->id)) }}
-        {{ Form::open(array('action' => array('CommentController@deleteComment', $comment->id))) }}
-             {{ Form::submit('delete') }}
-        {{ Form::close() }}
+        @if(Auth::check())
+            {{ link_to_route('getEditComment', 'Edit', array('comment_id' => $comment->id)) }}
+            {{ Form::open(array('action' => array('CommentController@deleteComment', $comment->id))) }}
+                 {{ Form::submit('delete') }}
+            {{ Form::close() }}
+        @endif
     </li>
     @endforeach
     </ul>

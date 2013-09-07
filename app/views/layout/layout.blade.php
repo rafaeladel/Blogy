@@ -7,5 +7,8 @@
     </head>
     <body>
         @yield('content')
+        @if(Auth::check())
+       		{{ link_to_action('UserController@getLogout', 'Logout')}}
+        @endif
     </body>
 </html>

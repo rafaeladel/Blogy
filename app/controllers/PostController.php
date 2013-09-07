@@ -34,6 +34,7 @@ class PostController extends BaseController {
         
         if($validator->passes()){
             $post = new Post();
+            $post->author = Auth::user()->username;
             $post->title = htmlentities(trim($data['title']));
             $post->body = strip_tags($data['body'], '<strong><pre>');
             $post->save();
